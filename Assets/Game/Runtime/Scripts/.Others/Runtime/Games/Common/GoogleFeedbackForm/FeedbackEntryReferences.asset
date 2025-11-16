@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a30e342338b4b528a16a100561fd52, type: 3}
+  m_Name: FeedbackEntryReferences
+  m_EditorClassIdentifier: 
+  formBaseURL: https://docs.google.com/forms/u/0/d/e/1FAIpQLSci5aUJE7_3XNu86Kc8t_XHM8CIGPi-9qYdGzo4obcXk6lFpg/formResponse
+  kumuEmailEntryId: entry.138219272
+  wirelessHeadphonesEntryId: entry.718051220
+  similarAppEntryId: entry.1796499209
+  crashesEntryId: entry.151075825
+  commentsEntryId: entry.1584330585
+  enjoyPlayingUbeEntryId: entry.1741402976
+  likeGraphicsUbeEntryId: entry.430092200
+  intuitiveEntryId: entry.105197244
+  avatarDesignEntryId: entry.1440419656
+  joinRoomsEntryId: entry.1777175353
+  moveAvatarEntryId: entry.1136559363
+  emotesEntryId: entry.363521774
+  voiceChatEntryId: entry.562879910
+  roomDesignEntryId: entry.1995664588
+  phonePerformanceEntryId: entry.2121133908
+  ubeSatisfactionEntryId: entry.1902542227
+  deviceModelEntryId: entry.110997414
+  operatingSystemEntryId: entry.1135175947
+  systemMemorySizeEntryId: entry.2125098298
+  graphicsDeviceNameEntryId: entry.1413223906
+  graphicsMemorySizeEntryId: entry.1183523925
+  graphicsShaderLevelEntryId: entry.1822391382
+  nda: entry.1286579071

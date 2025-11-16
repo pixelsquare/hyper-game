@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 081c6443129e140b6a9adabe2db48323, type: 3}
+  m_Name: VoiceChatAppConfig
+  m_EditorClassIdentifier: 
+  devAppID: 221ce634770b49ab861c48eb9ae1515d
+  devCertificate: 31a04521939a4333aa914ba1c89e6fb7
+  releaseAppId: dbbfa077e39e4b72b246a62a4855b089
+  releaseCertificate: 9373d1a565bf4f0c96761148159eb80f

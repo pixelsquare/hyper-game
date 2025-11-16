@@ -1,0 +1,28 @@
+{
+    "name": "Kumu.Kulitan.Editor",
+    "rootNamespace": "",
+    "references": [
+        "Kumu.Kulitan",
+        "Unity.Addressables",
+        "Unity.Addressables.Editor",
+        "PhotonQuantum",
+        "Kumu.Hangout.Common",
+        "PhotonRealtime",
+        "Unity.TextMeshPro",
+        "StompyRobot.SRDebugger.Editor",
+        "AppleAuth",
+        "AppleAuth.Editor",
+        "Unity.Services.Core"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

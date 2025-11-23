@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 592c5149c9425f74fb3d6942c336fbfd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Game::Game.LoadingView
-  loadingSlider: {fileID: 238275336}
+  loadingSlider: {fileID: 238275337}
 --- !u!114 &94058849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,6 +335,7 @@ GameObject:
   m_Component:
   - component: {fileID: 238275335}
   - component: {fileID: 238275336}
+  - component: {fileID: 238275337}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -414,6 +415,19 @@ MonoBehaviour:
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &238275337
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 238275334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: df7f3a894d0ae044cae372e2aa62a227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.SliderProp
+  slider: {fileID: 238275336}
 --- !u!1 &259547609
 GameObject:
   m_ObjectHideFlags: 0

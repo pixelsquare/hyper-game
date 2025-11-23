@@ -12,7 +12,6 @@ namespace Game
 
         private GameConfig gameConfig;
         private UniTaskCompletionSource userInputTcs;
-        private CancellationTokenSource roundCts;
 
         private void OnEnable()
         {
@@ -40,31 +39,33 @@ namespace Game
         {
             foreach (var round in rounds)
             {
-                using (roundCts = new CancellationTokenSource())
+                using (var roundCts = new CancellationTokenSource())
                 {
                     view.Hints.Value = round.Hints;
                     view.Choices.Value = round.Choices;
                     view.SetChoicesEnabled(true);
+                    
+                    using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(roundCts.Token, destroyCancellationToken);
                 
-                    ShowHints().Forget();
+                    ShowHints(linkedCts.Token).Forget();
                 
                     var totalRoundTime = round.Hints.Length * gameConfig.RoundIntervalSec + 1f;
-                    _ = await WaitForTimeOrInput(totalRoundTime);
+                    _ = await WaitForTimeOrInput(totalRoundTime, linkedCts.Token);
 
-                    roundCts?.Cancel();
-                    await UniTask.Delay(TimeSpan.FromSeconds(1f));
+                    roundCts.Cancel();
+                    await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: destroyCancellationToken);
                     view.ShowCorrectAnswer(round.AnswerIdx);
-                    await UniTask.Delay(TimeSpan.FromSeconds(1f));
+                    await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: destroyCancellationToken);
                     view.SetRoundCleared();
                 }
             }
         }
 
-        private async UniTaskVoid ShowHints()
+        private async UniTaskVoid ShowHints(CancellationToken token)
         {
-            while (true)
+            while (!token.IsCancellationRequested)
             {
-                await UniTask.Delay(TimeSpan.FromSeconds(gameConfig.RoundIntervalSec), cancellationToken: roundCts.Token);
+                await UniTask.Delay(TimeSpan.FromSeconds(gameConfig.RoundIntervalSec), cancellationToken: token);
                 
                 if (!view.TryShowNextHint())
                 {
@@ -75,7 +76,7 @@ namespace Game
             Debug.Log("Round End");
         }
 
-        private async UniTask StartTimer(float totalTime)
+        private async UniTask StartTimer(float totalTime, CancellationToken token)
         {
             view.TimerProgress.Value = totalTime;
             view.TimerMinMax.Value = (0, totalTime);
@@ -83,13 +84,14 @@ namespace Game
             await DOTween.To(() => view.TimerProgress.Value, x => view.TimerProgress.Value = x, 0f, totalTime)
                 .SetEase(Ease.Linear)
                 .Play()
-                .WithCancellation(roundCts.Token);
+                .WithCancellation(token);
         }
 
-        private UniTask<int> WaitForTimeOrInput(float totalTime)
+        private UniTask<int> WaitForTimeOrInput(float totalTime, CancellationToken token)
         {
-            var timerTask = StartTimer(totalTime);
+            var timerTask = StartTimer(totalTime, token);
             userInputTcs = new UniTaskCompletionSource();
+            token.Register(() => userInputTcs.TrySetCanceled());
             return UniTask.WhenAny(timerTask, userInputTcs.Task);
         }
 

@@ -8,6 +8,7 @@ using UnityEngine.Events;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Object = System.Object;
 
 namespace Game
 {
@@ -19,11 +20,11 @@ namespace Game
 
         [Header("Choices")]
         [SerializeField] private Transform choicesParent;
-        [SerializeField] private GameObject choicesPrefab;
+        [SerializeField] private Choice choicesPrefab;
         
         [Header("Hints")]
         [SerializeField] private Transform hintsParent;
-        [SerializeField] private GameObject hintsPrefab;
+        [SerializeField] private Hint hintsPrefab;
 
         public ReactiveProperty<(float, float)> TimerMinMax { get; set; } = new();
         public ReactiveProperty<float> TimerProgress { get; set; } = new();
@@ -33,31 +34,31 @@ namespace Game
 
         public UnityAction<int, string> OnChoiceSelected;
         
-        private IObjectPool<GameObject> choicePool;
-        private List<Button> choiceButtons = new(4);
+        private IObjectPool<Choice> choicePool;
+        private List<Choice> choiceButtons = new(4);
         
-        private IObjectPool<GameObject> hintPool;
-        private List<GameObject> hintObjs = new(4);
+        private IObjectPool<Hint> hintPool;
+        private List<Hint> hintObjs = new(4);
 
         private Queue<string> hintQueue = new();
         private CancellationTokenSource choicesCts;
         
         private void Awake()
         {
-            choicePool = new ObjectPool<GameObject>(
+            choicePool = new ObjectPool<Choice>(
                 createFunc: () => CreatePooledObject(choicesPrefab, choicesParent),
-                actionOnGet: x => x.SetActive(true),
-                actionOnRelease: x => x.SetActive(false),
+                actionOnGet: x => x.gameObject.SetActive(true),
+                actionOnRelease: x => x.gameObject.SetActive(false),
                 actionOnDestroy: Destroy,
                 collectionCheck: true,
                 defaultCapacity: 4,
                 maxSize: 4
             );
 
-            hintPool = new ObjectPool<GameObject>(
+            hintPool = new ObjectPool<Hint>(
                 createFunc: () => CreatePooledObject(hintsPrefab, hintsParent),
-                actionOnGet: x => x.SetActive(true),
-                actionOnRelease: x => x.SetActive(false),
+                actionOnGet: x => x.gameObject.SetActive(true),
+                actionOnRelease: x => x.gameObject.SetActive(false),
                 actionOnDestroy: Destroy,
                 collectionCheck: true,
                 defaultCapacity: 4,
@@ -70,19 +71,23 @@ namespace Game
                 .Subscribe(_ => SceneManager.LoadScene("Title"))
                 .AddTo(ref d);
             
-            AnswerSprite.Subscribe(x => answerImage.sprite = x)
+            AnswerSprite
+                .Subscribe(x => answerImage.sprite = x)
                 .AddTo(ref d);
 
-            TimerMinMax.Subscribe(x =>
+            TimerMinMax
+                .Subscribe(x =>
             {
                 timerSlider.minValue = x.Item1;
                 timerSlider.maxValue = x.Item2;
             }).AddTo(ref d);
             
-            TimerProgress.Subscribe(x => timerSlider.value = x)
+            TimerProgress
+                .Subscribe(x => timerSlider.value = x)
                 .AddTo(ref d);
             
-            Hints.Subscribe(x =>
+            Hints
+                .Subscribe(x =>
             {
                 hintQueue.Clear();
                 foreach (var obj in x)
@@ -96,28 +101,28 @@ namespace Game
                 choicesCts?.Cancel();
                 choicesCts?.Dispose();
                 choicesCts = new  CancellationTokenSource();
+                
                 var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(choicesCts.Token, destroyCancellationToken);
                 var d1 = Disposable.CreateBuilder();
+                
+                choiceButtons.ForEach(x => x.IsInteractable.Value = true);
                 
                 for (var i = 0; i < x.Length; i++)
                 {
                     var idx = i;
                     var choiceString = x[idx];
-                    var choiceObj = choicePool.Get();
-
-                    if (!choiceObj.TryGetComponent<Button>(out var choiceButton))
-                    {
-                        Debug.LogError("Unable to find button component!");
-                        continue;
-                    }
-
-                    choiceButton.onClick.AsObservable()
-                        .Subscribe(_ => OnChoiceSelected?.Invoke(idx, choiceString))
+                    var choiceButton = choicePool.Get();
+                    
+                    choiceButton.OnClickEvent
+                        .Subscribe(_ =>
+                        {
+                            OnChoiceSelected?.Invoke(idx, choiceString);
+                            choiceButtons.ForEach(x => x.IsInteractable.Value = false);
+                        })
                         .AddTo(ref d1);
 
-                    var choiceText = choiceObj.GetComponentInChildren<TextMeshProUGUI>();
-                    choiceText.text = choiceString;
-
+                    choiceButton.Text.Value = choiceString;
+                    choiceButton.Text.ForceNotify();
                     choiceButtons.Add(choiceButton);
                 }
 
@@ -146,8 +151,8 @@ namespace Game
         {
             foreach (var obj in choiceButtons)
             {
-                obj.image.color = Color.white;
-                choicePool.Release(obj.gameObject);
+                obj.Color.Value = Color.white;
+                choicePool.Release(obj);
             }
 
             foreach (var obj in hintObjs)
@@ -172,18 +177,18 @@ namespace Game
                 return;
             }
             
-            choiceButtons[choiceIndex].image.color = color;
+            choiceButtons[choiceIndex].Color.Value = color;
         }
 
         public void SetChoicesEnabled(bool enabled)
         {
             foreach (var choiceButton in choiceButtons)
             {
-                choiceButton.interactable = enabled;
+                choiceButton.IsInteractable.Value = enabled;
             }
         }
 
-        private GameObject CreatePooledObject(GameObject prefab, Transform parent)
+        private T CreatePooledObject<T>(T prefab, Transform parent) where T : UnityEngine.Object
         {
             return Instantiate(prefab, parent);
         }

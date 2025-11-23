@@ -872,6 +872,8 @@ GameObject:
   - component: {fileID: 922175146}
   - component: {fileID: 922175145}
   - component: {fileID: 922175144}
+  - component: {fileID: 922175147}
+  - component: {fileID: 922175148}
   m_Layer: 5
   m_Name: ChoiceButton
   m_TagString: Untagged
@@ -896,8 +898,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 491.67157, y: -100}
-  m_SizeDelta: {x: 883.34314, y: 100}
+  m_AnchoredPosition: {x: 540, y: -100}
+  m_SizeDelta: {x: 980, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &922175144
 MonoBehaviour:
@@ -964,7 +966,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: -1843197933104017171, guid: ea660c2ab665c4248a367c027bbffe4e, type: 3}
-  m_Type: 1
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -981,6 +983,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 922175142}
   m_CullTransparentMesh: 1
+--- !u!114 &922175147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922175142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a83782422f79fa43a129b094838ebae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.ButtonProp
+  button: {fileID: 922175144}
+  text: {fileID: 1285039294}
+--- !u!114 &922175148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 922175142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7aa768d6475789149960c3f28c3b6292, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Choice
+  button: {fileID: 922175147}
 --- !u!1 &1242355657
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,6 +1021,8 @@ GameObject:
   - component: {fileID: 1242355658}
   - component: {fileID: 1242355660}
   - component: {fileID: 1242355659}
+  - component: {fileID: 1242355662}
+  - component: {fileID: 1242355661}
   m_Layer: 5
   m_Name: Hint
   m_TagString: Untagged
@@ -1057,6 +1088,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1242355657}
   m_CullTransparentMesh: 1
+--- !u!114 &1242355661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242355657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d9619cf595578ad4ebf4408cf686bbd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.Hint
+  image: {fileID: 1242355662}
+  text: {fileID: 2145851459}
+--- !u!114 &1242355662
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242355657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d00b1cc8c194fe44a8fbfd5d9c254e34, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.ImageProp
+  image: {fileID: 1242355659}
 --- !u!1 &1285039290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1068,6 +1126,7 @@ GameObject:
   - component: {fileID: 1285039291}
   - component: {fileID: 1285039293}
   - component: {fileID: 1285039292}
+  - component: {fileID: 1285039294}
   m_Layer: 5
   m_Name: ChoiceText
   m_TagString: Untagged
@@ -1193,6 +1252,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1285039290}
   m_CullTransparentMesh: 1
+--- !u!114 &1285039294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1285039290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665ccc8f45cc5b848a69ca0fd2efbff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.TextProp
+  text: {fileID: 1285039292}
 --- !u!1 &1329105747
 GameObject:
   m_ObjectHideFlags: 0
@@ -1535,9 +1607,9 @@ MonoBehaviour:
   timerSlider: {fileID: 1626784411}
   homeButton: {fileID: 1529880537}
   choicesParent: {fileID: 307909803}
-  choicesPrefab: {fileID: 922175142}
+  choicesPrefab: {fileID: 922175148}
   hintsParent: {fileID: 59469899}
-  hintsPrefab: {fileID: 1242355657}
+  hintsPrefab: {fileID: 1242355661}
 --- !u!114 &1609513897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1878,6 +1950,7 @@ GameObject:
   - component: {fileID: 2145851456}
   - component: {fileID: 2145851458}
   - component: {fileID: 2145851457}
+  - component: {fileID: 2145851459}
   m_Layer: 5
   m_Name: HintText
   m_TagString: Untagged
@@ -2003,6 +2076,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2145851455}
   m_CullTransparentMesh: 1
+--- !u!114 &2145851459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2145851455}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 665ccc8f45cc5b848a69ca0fd2efbff9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game::Game.TextProp
+  text: {fileID: 2145851457}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

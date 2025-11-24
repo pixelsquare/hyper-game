@@ -39,25 +39,26 @@ namespace Game
         {
             foreach (var round in rounds)
             {
-                using (var roundCts = new CancellationTokenSource())
-                {
-                    view.Hints.Value = round.Hints;
-                    view.Choices.Value = round.Choices;
-                    view.SetChoicesEnabled(true);
-                    
-                    using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(roundCts.Token, destroyCancellationToken);
-                
-                    ShowHints(linkedCts.Token).Forget();
-                
-                    var totalRoundTime = round.Hints.Length * gameConfig.RoundIntervalSec + 1f;
-                    _ = await WaitForTimeOrInput(totalRoundTime, linkedCts.Token);
+                using var roundCts = new CancellationTokenSource();
 
-                    roundCts.Cancel();
-                    await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: destroyCancellationToken);
-                    view.ShowCorrectAnswer(round.AnswerIdx);
-                    await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: destroyCancellationToken);
-                    view.SetRoundCleared();
-                }
+                view.Hints.Value = round.Hints;
+                view.Choices.Value = round.Choices;
+                view.Choices.Value = round.Choices;
+                view.Choices.Value = round.Choices;
+                view.SetChoicesEnabled(true);
+                    
+                using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(roundCts.Token, destroyCancellationToken);
+                
+                ShowHints(linkedCts.Token).Forget();
+                
+                var totalRoundTime = round.Hints.Length * gameConfig.RoundIntervalSec + 1f;
+                _ = await WaitForTimeOrInput(totalRoundTime, linkedCts.Token);
+
+                roundCts.Cancel();
+                await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: destroyCancellationToken);
+                view.ShowCorrectAnswer(round.AnswerIdx);
+                await UniTask.Delay(TimeSpan.FromSeconds(1f), cancellationToken: destroyCancellationToken);
+                view.SetRoundCleared();
             }
         }
 

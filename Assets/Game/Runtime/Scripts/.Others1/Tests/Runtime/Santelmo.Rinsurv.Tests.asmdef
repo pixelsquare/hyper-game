@@ -1,0 +1,26 @@
+{
+    "name": "Santelmo.Rinsurv.Tests",
+    "rootNamespace": "Santelmo.Rinsurv.Tests",
+    "references": [
+        "UnityEngine.TestRunner",
+        "Santelmo.Rinsurv",
+        "Zenject"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "iOS"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": true,
+    "precompiledReferences": [
+        "nunit.framework.dll"
+    ],
+    "autoReferenced": false,
+    "defineConstraints": [
+        "UNITY_INCLUDE_TESTS"
+    ],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

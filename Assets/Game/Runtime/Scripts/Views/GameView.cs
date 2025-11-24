@@ -8,7 +8,6 @@ using UnityEngine.Events;
 using UnityEngine.Pool;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using Object = System.Object;
 
 namespace Game
 {
@@ -41,7 +40,6 @@ namespace Game
         private List<Hint> hintObjs = new(4);
 
         private Queue<string> hintQueue = new();
-        private CancellationTokenSource choicesCts;
         
         private void Awake()
         {
@@ -98,12 +96,10 @@ namespace Game
             
             Choices.Subscribe(x =>
             {
-                choicesCts?.Cancel();
-                choicesCts?.Dispose();
-                choicesCts = new  CancellationTokenSource();
+                using var choicesCts = new  CancellationTokenSource();
                 
-                var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(choicesCts.Token, destroyCancellationToken);
-                var d1 = Disposable.CreateBuilder();
+                using var linkedCts = CancellationTokenSource.CreateLinkedTokenSource(choicesCts.Token, destroyCancellationToken);
+                var d = Disposable.CreateBuilder();
                 
                 choiceButtons.ForEach(x => x.IsInteractable.Value = true);
                 
@@ -119,14 +115,13 @@ namespace Game
                             OnChoiceSelected?.Invoke(idx, choiceString);
                             choiceButtons.ForEach(x => x.IsInteractable.Value = false);
                         })
-                        .AddTo(ref d1);
+                        .AddTo(ref d);
 
                     choiceButton.Text.Value = choiceString;
-                    choiceButton.Text.ForceNotify();
                     choiceButtons.Add(choiceButton);
                 }
 
-                d1.RegisterTo(linkedCts.Token);
+                d.RegisterTo(linkedCts.Token);
             }).AddTo(ref d);
             
             d.RegisterTo(destroyCancellationToken);

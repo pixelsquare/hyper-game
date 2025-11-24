@@ -1,0 +1,23 @@
+{
+    "name": "Santelmo.Rinsurv.Editor",
+    "rootNamespace": "Santelmo.Rinsurv.Editor",
+    "references": [
+        "Santelmo.Rinsurv",
+        "Unity.Recorder.Editor",
+        "Google.Editor",
+        "Unity.Addressables",
+        "Unity.Addressables.Editor",
+        "Sirenix.OdinInspector.Modules.UnityMathematics"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

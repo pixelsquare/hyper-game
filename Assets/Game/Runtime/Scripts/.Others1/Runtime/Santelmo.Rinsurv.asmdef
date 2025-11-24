@@ -1,0 +1,35 @@
+{
+    "name": "Santelmo.Rinsurv",
+    "rootNamespace": "Santelmo.Rinsurv",
+    "references": [
+        "ootii",
+        "Zenject",
+        "UniRx",
+        "UniTask",
+        "UniTask.Addressables",
+        "UniTask.DOTween",
+        "UniTask.Linq",
+        "UniTask.TextMeshPro",
+        "Unity.TextMeshPro",
+        "Unity.Addressables",
+        "Unity.ResourceManager",
+        "DarkTonic.MasterAudio",
+        "Google",
+        "FancyCarouselView",
+        "FancyScrollView",
+        "PowerSprite"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "iOS"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

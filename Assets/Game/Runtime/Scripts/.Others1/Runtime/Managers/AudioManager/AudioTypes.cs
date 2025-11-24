@@ -1,0 +1,66 @@
+namespace Santelmo.Rinsurv
+{
+    public enum Bgm
+    {
+        [StringValue("bgm_mainmenu")]
+        MainMenu,
+        [StringValue("bgm_gameplay")]
+        Gameplay,
+        [StringValue("bgm_heroselect")]
+        HeroSelect,
+        [StringValue("bgm_shop")]
+        Shop,
+        [StringValue("bgm_inventory")]
+        Inventory,
+        [StringValue("bgm_equipment")]
+        Equipment,
+        [StringValue("bgm_missionselect")]
+        MissionSelect
+    }
+
+    public enum Sfx
+    {
+        [StringValue("sfx_ui_tap")]
+        BtnTap,
+        [StringValue("sfx_ui_confirm")]
+        BtnConfirm,
+        [StringValue("level-up")]
+        LevelUp,
+        [StringValue("retro-pickup")]
+        GemPickup,
+        [StringValue("sfx_spear_throw")]
+        Hero1Weapon,
+        [StringValue("sfx_spear_stabs")]
+        Hero1LahatLahat1,
+        [StringValue("sfx_spear_throw_triple")]
+        Hero1LahatLahat2,
+        [StringValue("sfx_spear_drill")]
+        Hero1LahatLahat3,
+        [StringValue("no-placeholder")]
+        IdalmunonStrike,
+        [StringValue("sfx_stone_barrage")]
+        IdalmunonCast,
+        [StringValue("sfx_last_stand")]
+        IdalmunonDeflect,
+        [StringValue("sfx_gantis_fist")]
+        IdalmunonSmite,
+        [StringValue("sfx_static_discharge")]
+        KahangianDeflect,
+        [StringValue("wind")]
+        KahangianMove,
+        [StringValue("thunder")]
+        KahangianSmite,
+        [StringValue("sfx_storm_baklaw")]
+        KahangianCast,
+        [StringValue("gust")]
+        KahangianPassive1,
+        [StringValue("sfx_player_hit")]
+        PlayerHit,
+        [StringValue("sfx_enemy_hit")]
+        EnemyHit,
+        [StringValue("sfx_enemy_death")]
+        EnemyDeath,
+        [StringValue("sfx_bisaha_death")]
+        BossDeath,
+    }
+}

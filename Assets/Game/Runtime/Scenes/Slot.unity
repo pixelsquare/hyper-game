@@ -151,11 +151,11 @@ RectTransform:
   - {fileID: 342834618}
   m_Father: {fileID: 272500021}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 200, y: 600}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &231438977
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -413,7 +413,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Game::Game.SlotReel
   content: {fileID: 342834618}
-  symbolHeight: 100
+  layoutGroup: {fileID: 342834620}
+  contentSizeFitter: {fileID: 342834619}
+  symbolHeight: 200
   scrollDuration: 0.05
   symbolCount: 6
 --- !u!1 &320665044
@@ -544,11 +546,11 @@ RectTransform:
   - {fileID: 264799697}
   m_Father: {fileID: 231438976}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: 230}
   m_SizeDelta: {x: 200, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &342834619
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -580,7 +582,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 1
+  m_ChildAlignment: 7
   m_Spacing: 10
   m_ChildForceExpandWidth: 0
   m_ChildForceExpandHeight: 0

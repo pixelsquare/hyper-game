@@ -1,12 +1,16 @@
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = System.Random;
 
 namespace Game
 {
     public class SlotReel : MonoBehaviour
     {
         [SerializeField] private RectTransform content;
+        [SerializeField] private VerticalLayoutGroup layoutGroup;
+        [SerializeField] private ContentSizeFitter contentSizeFitter;
         [SerializeField] private float symbolHeight = 200f;
         [SerializeField] private float scrollDuration = 0.15f;
         [SerializeField] private int symbolCount = 6;
@@ -15,6 +19,7 @@ namespace Game
         private Dictionary<int, RectTransform> symbolsMap = new();
         private bool isSpinning = false;
         private Tweener spinTween;
+        private int stopIndex;
         
         private RectTransform targetSymbol;
 
@@ -27,6 +32,8 @@ namespace Game
                 symbolsMap.Add(idx, child);
                 idx++;
             }
+            
+            targetSymbol = symbols[0];
         }
 
         private void Update()
@@ -39,7 +46,7 @@ namespace Game
             if (Input.GetKeyDown(KeyCode.D))
             {
                 targetSymbol = symbolsMap[0];
-                StopAt(0, 1f);
+                StopAt(1, 1f);
             }
         }
 
@@ -69,7 +76,7 @@ namespace Game
             //         return;
             //     }
             // }
-
+            
             var startPos = content.anchoredPosition;
             var endPos = startPos - Vector2.up * symbolHeight;
             
@@ -101,28 +108,29 @@ namespace Game
             {
                 spinTween.Kill();
             }
-            
-            // if (!symbolsMap.TryGetValue(index, out var symbol))
-            // {
-            //     return;
-            // }
-            // index = symbols.IndexOf(symbol);
-            // Debug.Log(index);
-            // Debug.Log(symbol.name);
-            //
-            // var curIdx = symbols.IndexOf(symbol);
-            // symbol.SetSiblingIndex(0);
-            //
-            // symbols.Sort((a,b) => a.GetSiblingIndex().CompareTo(b.GetSiblingIndex()));
-            //
-            // var newIdx = symbols.IndexOf(symbol);
-            // var targetY = -(newIdx * symbolHeight);
-            
-            Debug.Log("Stopping at " + index);
-            var targetY = -(index * symbolHeight);
-            Debug.Log(targetY);
 
-            content.DOAnchorPosY(targetY, stopTime)
+            // contentSizeFitter.enabled = false;
+            // layoutGroup.enabled = false;
+            content.pivot = new Vector2(0.5f, 0.0f);
+
+            var r = content.GetChild(0) as RectTransform;
+            var y = r.anchoredPosition.y;
+            var rand = new Random();
+
+            for (var i = 0; i < 10; i++)
+            {
+                var pre = i == 5 ? targetSymbol : symbols[rand.Next(0, symbolCount)];
+                var sym = Instantiate(pre, content);
+                var anc = sym.anchoredPosition;
+                anc.y = y + symbolHeight;
+                sym.anchoredPosition = anc;
+                y = anc.y;
+                sym.SetAsFirstSibling();
+            }
+            
+            
+
+            content.DOAnchorPosY(-(content.childCount - 3) * (symbolHeight + layoutGroup.spacing), stopTime)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() => { targetSymbol = null; })
                 .Play();
